@@ -51,3 +51,5 @@ Pré-requis : Avoir Node.js installé.
 
 L'interface sera accessible sur : http://localhost:5173
 
+Test de synchronisation depuis le nouvel ordinateur : ✅ Succès.
+
