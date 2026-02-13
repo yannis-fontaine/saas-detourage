@@ -20,7 +20,7 @@ app.add_middleware(
 def home():
     return {"message": "L'API de détourage est en ligne !"}
 
-@app.post("/remove-background")
+@app.post("/remove-bg")
 async def remove_background(file: UploadFile = File(...)):
     """
     Prend une image en entrée, retire le fond, et renvoie l'image PNG (binaire).
