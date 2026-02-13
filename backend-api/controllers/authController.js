@@ -79,13 +79,15 @@ exports.login = async (req, res) => {
 
 // --- DÉCONNEXION (Logout) ---
 exports.logout = (req, res) => {
-  // On écrase le cookie 'jwt' par un cookie vide qui expire tout de suite
-  res.cookie('jwt', generateToken(user._id), {
+  // On écrase le cookie 'jwt' par un cookie vide qui expire immédiatement
+  res.cookie('jwt', '', {
     httpOnly: true,
-    secure: false, // <--- ON FORCE À FALSE POUR QUE ÇA MARCHE EN HTTP
-    sameSite: 'lax', // 'lax' est plus tolérant que 'strict' pour le développement
-    maxAge: 30 * 24 * 60 * 60 * 1000
+    expires: new Date(0), // Date dans le passé = suppression immédiate
+    secure: false,        // <--- IMPORTANT : Doit être pareil que dans le Login !
+    sameSite: 'lax'       // <--- IMPORTANT : Doit être pareil que dans le Login !
   });
+  
+  res.status(200).json({ message: 'Déconnexion réussie' });
 };
 
 

@@ -42,10 +42,19 @@ export const AuthProvider = ({ children }) => {
     setUser(data);
   };
 
-  // 4. Fonction de Déconnexion (Logout)
+// 4. Fonction de Déconnexion (Logout)
   const logout = async () => {
-    await axios.post('http://localhost:5000/api/auth/logout');
-    setUser(null); // On vide l'utilisateur
+    try {
+      // On demande au backend de supprimer le cookie
+      await axios.post('http://localhost:5000/api/auth/logout');
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion serveur", error);
+    } finally {
+      // QUOI QU'IL ARRIVE (Succès ou Erreur), on vide l'utilisateur localement
+      setUser(null); 
+      // Optionnel : On peut recharger la page pour être sûr que tout est propre
+      // window.location.href = "/"; 
+    }
   };
 
   return (
