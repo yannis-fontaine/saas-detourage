@@ -19,34 +19,47 @@ const ImageUploader = () => {
   };
 
   const handleUpload = async () => {
-      if (!selectedFile) return;
+      if (!selectedFile) {
+          alert("Veuillez sélectionner une image d'abord !");
+          return;
+      }
+
       setLoading(true);
       setError('');
-      setResultImage(null); // On reset l'image avant de commencer
+      setResultImage(null); // On nettoie l'ancienne image
 
       const formData = new FormData();
       formData.append('file', selectedFile);
 
       try {
-        // ⚠️ C'EST ICI LE SECRET : { responseType: 'blob' }
-        // Cela dit à Axios : "Ne lis pas ça comme du texte, c'est un fichier !"
+        console.log("🚀 Envoi de l'image vers l'IA...");
+        
+        // 1. On envoie la requête
         const response = await axios.post('/ai/remove-bg', formData, {
-          responseType: 'blob', // <--- INDISPENSABLE
           headers: {
             'Content-Type': 'multipart/form-data',
           },
+          responseType: 'blob', // <--- C'EST LA CLEF MAGIQUE 🔑
         });
 
-        // On vérifie qu'on a bien reçu quelque chose
-        if (response.data.size === 0) {
-          throw new Error("L'image reçue est vide");
+        console.log("📦 Réponse reçue !", response);
+
+        // 2. On vérifie qu'on a bien reçu des données (pas un fichier vide)
+        if (response.data.size < 100) {
+            throw new Error("L'image reçue est trop petite (erreur probable)");
         }
 
-        const imageUrl = URL.createObjectURL(response.data);
-        setResultImage(imageUrl);
+        // 3. On crée une URL magique locale pour l'afficher
+        // C'est ça qui évite l'erreur 405 "Method Not Allowed"
+        const imageLocalUrl = URL.createObjectURL(response.data);
         
+        console.log("✨ URL Locale créée :", imageLocalUrl);
+        
+        // 4. On met à jour l'affichage
+        setResultImage(imageLocalUrl);
+
       } catch (err) {
-        console.error("Erreur détaillée :", err);
+        console.error("❌ Erreur détaillée :", err);
         setError("Erreur lors du traitement. Regarde la console (F12) !");
       } finally {
         setLoading(false);
