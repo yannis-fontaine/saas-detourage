@@ -19,27 +19,39 @@ const ImageUploader = () => {
   };
 
   const handleUpload = async () => {
-    if (!selectedFile) return;
-    setLoading(true);
-    setError('');
+      if (!selectedFile) return;
+      setLoading(true);
+      setError('');
+      setResultImage(null); // On reset l'image avant de commencer
 
-    const formData = new FormData();
-    formData.append('file', selectedFile);
+      const formData = new FormData();
+      formData.append('file', selectedFile);
 
-    try {
-      const response = await axios.post('/ai/remove-bg', formData, {
-        responseType: 'blob',
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      const imageUrl = URL.createObjectURL(response.data);
-      setResultImage(imageUrl);
-    } catch (err) {
-      console.error(err);
-      setError("Erreur : Vérifiez que le serveur Python (Port 8000) est allumé.");
-    } finally {
-      setLoading(false);
-    }
-  };
+      try {
+        // ⚠️ C'EST ICI LE SECRET : { responseType: 'blob' }
+        // Cela dit à Axios : "Ne lis pas ça comme du texte, c'est un fichier !"
+        const response = await axios.post('/ai/remove-bg', formData, {
+          responseType: 'blob', // <--- INDISPENSABLE
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
+        // On vérifie qu'on a bien reçu quelque chose
+        if (response.data.size === 0) {
+          throw new Error("L'image reçue est vide");
+        }
+
+        const imageUrl = URL.createObjectURL(response.data);
+        setResultImage(imageUrl);
+        
+      } catch (err) {
+        console.error("Erreur détaillée :", err);
+        setError("Erreur lors du traitement. Regarde la console (F12) !");
+      } finally {
+        setLoading(false);
+      }
+    };
 
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
