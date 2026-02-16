@@ -27,7 +27,7 @@ const ImageUploader = () => {
     formData.append('file', selectedFile);
 
     try {
-      const response = await axios.post('http://localhost:8000/remove-bg', formData, {
+      const response = await axios.post('/ai/remove-bg', formData, {
         responseType: 'blob',
         headers: { 'Content-Type': 'multipart/form-data' },
       });

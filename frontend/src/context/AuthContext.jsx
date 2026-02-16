@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   const checkUserLoggedIn = async () => {
     try {
       // On demande au backend "Qui suis-je ?"
-      const { data } = await axios.get('http://localhost:5000/api/auth/me');
+      const { data } = await axios.get('/api/auth/me');
       setUser(data); // Si ça marche, on stocke l'utilisateur
     } catch (error) {
       setUser(null); // Sinon, on n'est pas connecté
@@ -31,14 +31,14 @@ export const AuthProvider = ({ children }) => {
   // 2. Fonction de Connexion (Login)
   const login = async (email, password) => {
     // On envoie email + mdp au backend
-    const { data } = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+    const { data } = await axios.post('/api/auth/login', { email, password });
     setUser(data); // On met à jour l'état global
     // Pas besoin de gérer le cookie, le navigateur le fait tout seul !
   };
 
   // 3. Fonction d'Inscription (Register)
   const register = async (email, password) => {
-    const { data } = await axios.post('http://localhost:5000/api/auth/register', { email, password });
+    const { data } = await axios.post('/api/auth/register', { email, password });
     setUser(data);
   };
 
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       // On demande au backend de supprimer le cookie
-      await axios.post('http://localhost:5000/api/auth/logout');
+      await axios.post('/api/auth/logout');
     } catch (error) {
       console.error("Erreur lors de la déconnexion serveur", error);
     } finally {
