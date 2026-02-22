@@ -4,7 +4,7 @@ import axios from 'axios';
 const ImageUploader = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
-  const [preview, setPreview] = useState(null); // Pour voir l'image avant envoi
+  const [preview, setPreview] = useState(null);
   const [resultImage, setResultImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -13,16 +13,16 @@ const ImageUploader = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      setPreview(URL.createObjectURL(file)); // Afficher la miniature
+      setPreview(URL.createObjectURL(file));
       setResultImage(null);
       setError('');
-      setSuccessMessage(''); // On efface le message si on change d'image
+      setSuccessMessage('');
     }
   };
 
   const handleReset = () => {
     setSelectedFile(null);
-    setPreview(null); // N'oublie pas de vider l'aperçu aussi !
+    setPreview(null);
     setResultImage(null);
     setError('');
     setSuccessMessage('');
@@ -36,37 +36,28 @@ const ImageUploader = () => {
 
     setLoading(true);
     setError('');
-    setResultImage(null); // On nettoie l'ancienne image
-    setSuccessMessage(''); // On nettoie le message de succès
+    setResultImage(null);
+    setSuccessMessage('');
 
     const formData = new FormData();
     formData.append('file', selectedFile);
 
     try {
-      console.log("🚀 Envoi de l'image vers l'IA...");
-
-      // 1. On envoie la requête
       const response = await axios.post('/ai/remove-bg', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        responseType: 'blob', // <--- C'EST LA CLEF MAGIQUE 🔑
+        responseType: 'blob',
       });
 
-      console.log("📦 Réponse reçue !", response);
-
-      // 2. On vérifie qu'on a bien reçu des données (pas un fichier vide)
       if (response.data.size < 100) {
         throw new Error("L'image reçue est trop petite (erreur probable)");
       }
 
-      // 3. On crée une URL magique locale pour l'afficher
       const imageLocalUrl = URL.createObjectURL(response.data);
-
-      console.log("✨ URL Locale créée :", imageLocalUrl);
-
-      // 4. On met à jour l'affichage et on ajoute le message de succès
       setResultImage(imageLocalUrl);
+      
+      // On déclenche le message de succès
       setSuccessMessage('✨ Détourage terminé avec succès !');
 
     } catch (err) {
@@ -79,9 +70,16 @@ const ImageUploader = () => {
 
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+      
+      {/* 🟢 NOTIFICATION VERTE TOUT EN HAUT 🟢 */}
+      {successMessage && (
+        <div style={{ backgroundColor: '#d4edda', color: '#155724', padding: '15px', borderRadius: '8px', marginBottom: '20px', fontWeight: 'bold', textAlign: 'center', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+          {successMessage}
+        </div>
+      )}
 
       {/* Zone d'Upload */}
-      <div className="card" style={{ marginTop: '2rem', textAlign: 'center' }}>
+      <div className="card" style={{ marginTop: '1rem', textAlign: 'center' }}>
         <div className="upload-zone" onClick={() => document.getElementById('fileInput').click()}>
           {preview ? (
             <img src={preview} alt="Aperçu" style={{ maxHeight: '200px', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }} />
@@ -116,13 +114,6 @@ const ImageUploader = () => {
       {resultImage && (
         <div className="card" style={{ marginTop: '2rem', textAlign: 'center', animation: 'fadeIn 0.5s' }}>
           <h3 style={{ marginBottom: '1rem' }}>Résultat</h3>
-          
-          {/* Notification Verte */}
-          {successMessage && (
-            <div style={{ backgroundColor: '#d4edda', color: '#155724', padding: '10px', borderRadius: '5px', marginBottom: '15px', fontWeight: 'bold' }}>
-              {successMessage}
-            </div>
-          )}
 
           <div className="checkerboard" style={{ padding: '20px', borderRadius: '12px', display: 'inline-block' }}>
             <img
@@ -132,13 +123,13 @@ const ImageUploader = () => {
             />
           </div>
 
-          <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '15px' }}>
+          <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '15px', flexWrap: 'wrap' }}>
             {/* Bouton Télécharger */}
             <a href={resultImage} download="detourage-hd.png" style={{ textDecoration: 'none' }}>
               <button style={{ backgroundColor: '#10b981' }}>⬇️ Télécharger la nouvelle image</button>
             </a>
             
-            {/* Nouveau bouton "Faire une nouvelle suppression" */}
+            {/* 🔵 BOUTON POUR RECOMMENCER 🔵 */}
             <button 
               onClick={handleReset} 
               style={{ backgroundColor: '#3b82f6' }}
