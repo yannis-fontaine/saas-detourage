@@ -29,10 +29,7 @@ const ImageUploader = () => {
   };
 
   const handleUpload = async () => {
-    if (!selectedFile) {
-      alert("Veuillez sélectionner une image d'abord !");
-      return;
-    }
+    if (!selectedFile) return;
 
     setLoading(true);
     setError('');
@@ -44,50 +41,49 @@ const ImageUploader = () => {
 
     try {
       const response = await axios.post('/ai/remove-bg', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+        headers: { 'Content-Type': 'multipart/form-data' },
         responseType: 'blob',
       });
 
       if (response.data.size < 100) {
-        throw new Error("L'image reçue est trop petite (erreur probable)");
+        throw new Error("L'image reçue est trop petite.");
       }
 
       const imageLocalUrl = URL.createObjectURL(response.data);
       setResultImage(imageLocalUrl);
-      
-      // On déclenche le message de succès
       setSuccessMessage('✨ Détourage terminé avec succès !');
 
     } catch (err) {
-      console.error("❌ Erreur détaillée :", err);
-      setError("Erreur lors du traitement. Regarde la console (F12) !");
+      console.error(err);
+      setError("Erreur lors du traitement. Veuillez réessayer.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+    <div className="w-full max-w-2xl mx-auto">
       
-      {/* 🟢 NOTIFICATION VERTE TOUT EN HAUT 🟢 */}
+      {/* 🟢 NOTIFICATION DE SUCCÈS */}
       {successMessage && (
-        <div style={{ backgroundColor: '#d4edda', color: '#155724', padding: '15px', borderRadius: '8px', marginBottom: '20px', fontWeight: 'bold', textAlign: 'center', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+        <div className="mb-6 px-4 py-3 bg-green-50 border border-green-200 text-green-700 rounded-2xl text-center font-bold shadow-sm animate-pulse">
           {successMessage}
         </div>
       )}
 
-      {/* Zone d'Upload */}
-      <div className="card" style={{ marginTop: '1rem', textAlign: 'center' }}>
-        <div className="upload-zone" onClick={() => document.getElementById('fileInput').click()}>
+      {/* ZONE D'UPLOAD */}
+      <div className="bg-white p-8 rounded-3xl shadow-xl shadow-gray-200/50">
+        <div 
+          onClick={() => document.getElementById('fileInput').click()}
+          className="border-2 border-dashed border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-colors duration-300 rounded-2xl p-10 flex flex-col items-center justify-center cursor-pointer min-h-[300px]"
+        >
           {preview ? (
-            <img src={preview} alt="Aperçu" style={{ maxHeight: '200px', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }} />
+            <img src={preview} alt="Aperçu" className="max-h-64 rounded-xl shadow-md object-contain" />
           ) : (
             <>
-              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📷</div>
-              <p style={{ fontWeight: '500', color: '#4b5563' }}>Cliquez pour ajouter une image</p>
-              <p style={{ fontSize: '0.8rem', color: '#9ca3af' }}>JPG ou PNG</p>
+              <div className="text-6xl mb-4">📸</div>
+              <p className="text-lg font-semibold text-gray-700">Cliquez pour ajouter une image</p>
+              <p className="text-sm text-gray-400 mt-2">Formats acceptés : JPG, PNG, WEBP</p>
             </>
           )}
           <input
@@ -95,46 +91,59 @@ const ImageUploader = () => {
             type="file"
             onChange={handleFileChange}
             accept="image/*"
-            style={{ display: 'none' }}
+            className="hidden"
           />
         </div>
 
-        {error && <p style={{ color: '#ef4444', marginTop: '1rem' }}>{error}</p>}
+        {/* AFFICHAGE DES ERREURS */}
+        {error && <p className="text-red-500 font-medium text-center mt-4">{error}</p>}
 
+        {/* BOUTON D'ACTION */}
         <button
           onClick={handleUpload}
           disabled={!selectedFile || loading}
-          style={{ marginTop: '1.5rem', marginBottom: '1rem' }}
+          className={`w-full mt-6 py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg flex justify-center items-center gap-2
+            ${(!selectedFile || loading) 
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none' 
+              : 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-200 hover:-translate-y-1'}`}
         >
-          {loading ? 'Traitement en cours... ✨' : 'Lancer le détourage Magic 🪄'}
+          {loading ? (
+            <>
+              <svg className="animate-spin h-6 w-6 text-white" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Traitement en cours...
+            </>
+          ) : (
+            'Lancer le détourage Magic 🪄'
+          )}
         </button>
       </div>
 
-      {/* Résultat */}
+      {/* ZONE DE RÉSULTAT */}
       {resultImage && (
-        <div className="card" style={{ marginTop: '2rem', textAlign: 'center', animation: 'fadeIn 0.5s' }}>
-          <h3 style={{ marginBottom: '1rem' }}>Résultat</h3>
-
-          <div className="checkerboard" style={{ padding: '20px', borderRadius: '12px', display: 'inline-block' }}>
-            <img
-              src={resultImage}
-              alt="Résultat"
-              style={{ maxWidth: '100%', maxHeight: '400px', display: 'block' }}
-            />
+        <div className="bg-white p-8 rounded-3xl shadow-xl shadow-gray-200/50 mt-8 animate-fade-in-up">
+          <h3 className="text-2xl font-bold text-center text-gray-800 mb-6">Votre Résultat</h3>
+          
+          {/* Le Damier Photoshop */}
+          <div className="rounded-2xl overflow-hidden border border-gray-200 shadow-inner" style={{
+            backgroundImage: 'repeating-linear-gradient(45deg, #f3f4f6 25%, transparent 25%, transparent 75%, #f3f4f6 75%, #f3f4f6), repeating-linear-gradient(45deg, #f3f4f6 25%, #ffffff 25%, #ffffff 75%, #f3f4f6 75%, #f3f4f6)',
+            backgroundPosition: '0 0, 10px 10px',
+            backgroundSize: '20px 20px'
+          }}>
+            <img src={resultImage} alt="Résultat détouré" className="mx-auto max-h-[400px] object-contain block" />
           </div>
 
-          <div style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center', gap: '15px', flexWrap: 'wrap' }}>
-            {/* Bouton Télécharger */}
-            <a href={resultImage} download="detourage-hd.png" style={{ textDecoration: 'none' }}>
-              <button style={{ backgroundColor: '#10b981' }}>⬇️ Télécharger la nouvelle image</button>
+          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+            <a href={resultImage} download="detourage-hd.png" className="w-full sm:w-auto">
+              <button className="w-full px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition shadow-lg shadow-green-200">
+                ⬇️ Télécharger l'image HD
+              </button>
             </a>
             
-            {/* 🔵 BOUTON POUR RECOMMENCER 🔵 */}
-            <button 
-              onClick={handleReset} 
-              style={{ backgroundColor: '#3b82f6' }}
-            >
-              🔄 Faire une nouvelle suppression
+            <button onClick={handleReset} className="w-full sm:w-auto px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl transition">
+              🔄 Nouvelle image
             </button>
           </div>
         </div>
