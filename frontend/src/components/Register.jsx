@@ -1,15 +1,15 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import AuthContext from '../context/AuthContext'; // Vérifie bien ce chemin !
+import AuthContext from '../context/AuthContext';
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login, error } = useContext(AuthContext);
+  const { register, error } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(email, password);
+    register(email, password);
   };
 
   return (
@@ -17,10 +17,10 @@ const Login = () => {
       <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-3xl shadow-xl shadow-gray-200/50">
         <div>
           <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900">
-            Ravi de vous revoir 👋
+            Créer un compte 🚀
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Connectez-vous pour accéder à votre espace
+            Rejoignez-nous et détourer vos premières images.
           </p>
         </div>
 
@@ -36,7 +36,7 @@ const Login = () => {
               <input
                 type="email"
                 required
-                className="mt-1 appearance-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition"
+                className="mt-1 appearance-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm transition"
                 placeholder="exemple@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -47,8 +47,8 @@ const Login = () => {
               <input
                 type="password"
                 required
-                className="mt-1 appearance-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition"
-                placeholder="••••••••"
+                className="mt-1 appearance-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm transition"
+                placeholder="Minimum 8 caractères"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -58,18 +58,18 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition shadow-lg shadow-blue-200"
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition shadow-lg shadow-green-200"
             >
-              Se connecter
+              S'inscrire gratuitement
             </button>
           </div>
         </form>
 
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600">
-            Pas encore de compte ?{' '}
-            <Link to="/register" className="font-bold text-blue-600 hover:text-blue-500">
-              Créer un compte
+            Déjà un compte ?{' '}
+            <Link to="/login" className="font-bold text-blue-600 hover:text-blue-500">
+              Se connecter
             </Link>
           </p>
         </div>
@@ -78,4 +78,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
