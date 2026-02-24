@@ -116,7 +116,7 @@ const ImageUploader = () => {
               Traitement en cours...
             </>
           ) : (
-            'Lancer le détourage Magic 🪄'
+            'Lancer le détourage Magic'
           )}
         </button>
       </div>
@@ -136,9 +136,9 @@ const ImageUploader = () => {
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-            <a href={resultImage} download="detourage-hd.png" className="w-full sm:w-auto">
+            <a href={resultImage} download="detourage.png" className="w-full sm:w-auto">
               <button className="w-full px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition shadow-lg shadow-green-200">
-                ⬇️ Télécharger l'image HD
+                ⬇️ Télécharger l'image détourée
               </button>
             </a>
             

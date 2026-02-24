@@ -44,7 +44,7 @@ function App() {
                 <ProtectedRoute>
                   <main className="max-w-4xl mx-auto p-4 mt-8">
                     <p className="text-center text-gray-600 mb-8 text-lg">
-                      Bienvenue dans votre espace privé. Chargez une image ci-dessous pour supprimer l'arrière-plan.
+                      Chargez une image ci-dessous pour supprimer l'arrière-plan.
                     </p>
                     <ImageUpload /> 
                   </main>
