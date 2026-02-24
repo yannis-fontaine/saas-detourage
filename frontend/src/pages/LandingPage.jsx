@@ -64,7 +64,7 @@ const LandingPage = () => {
             <div className="text-center p-6 rounded-3xl bg-gray-50 hover:bg-gray-100 transition duration-300">
               <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-6">⚡</div>
               <h3 className="text-xl font-bold mb-3">Ultra Rapide</h3>
-              <p className="text-gray-500">Notre modèle U2Net traite vos images en quelques secondes, directement depuis notre serveur dédié.</p>
+              <p className="text-gray-500">Notre modèle U2Net traite vos images en moins d'une minute, directement depuis notre serveur dédié.</p>
             </div>
 
             {/* Carte 2 */}
