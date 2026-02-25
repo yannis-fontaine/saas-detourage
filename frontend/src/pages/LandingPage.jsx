@@ -11,8 +11,8 @@ const LandingPage = () => {
           {/* LOGO */}
           <img 
             src={logo} 
-            alt="Tool IA Logo" 
-            className="h-16 w-auto mb-6"
+            alt="Tool IA Logo"
+            className="h-32 w-auto mb-16 drop-shadow-lg"
           />
         <div className="inline-block mb-4 px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-semibold border border-blue-100">
           ✨ Le hub ultime pour vos créations IA
@@ -24,9 +24,15 @@ const LandingPage = () => {
         <p className="text-xl text-gray-500 mb-10 max-w-2xl text-center leading-relaxed">
           De la vision par ordinateur à la synthèse vocale, en passant par la génération d'images. Découvrez des outils de niveau production conçus pour les créateurs, e-commerçants et designers.
         </p>
-        <Link to="/register" className="px-8 py-4 bg-gray-900 hover:bg-gray-800 text-white font-bold rounded-2xl transition shadow-xl text-lg">
-          Accéder au Tableau de bord 🚀
+        <Link to="/register" className="px-8 py-4 bg-gray-900 hover:bg-gray-800 text-white font-bold rounded-2xl transition shadow-xl text-lg mb-12">
+          Accéder aux différents outils IA 🤖
         </Link>
+        <p className="text-xl text-gray-500 mb-10 max-w-2xl text-center leading-relaxed">
+          Découvrez nos outils ci-dessous ou connectez-vous pour les essayer dès maintenant !
+        </p>
+        <h1 className="text-4xl font-bold mb-6 text-center">
+        ⬇️
+        </h1>
       </section>
 
       {/* OUTIL 1 : DÉTOURAGE + SLIDER AVANT/APRÈS */}
@@ -34,7 +40,7 @@ const LandingPage = () => {
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
             <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">✂️</div>
-            <h2 className="text-4xl font-bold mb-4">Détourage Magique (Vision par ordinateur)</h2>
+            <h2 className="text-4xl font-bold mb-4">Détourage Magique</h2>
             <p className="text-lg text-gray-500 max-w-3xl mx-auto">
               Basé sur le modèle U²-Net, cet outil supprime automatiquement le fond de vos images. Incontournable pour l'e-commerce et le montage.
             </p>
@@ -110,7 +116,7 @@ const LandingPage = () => {
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
             <div className="w-16 h-16 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">🎨</div>
-            <h2 className="text-4xl font-bold mb-4">Studio d'Images IA (Stable Diffusion)</h2>
+            <h2 className="text-4xl font-bold mb-4">Studio d'Images IA</h2>
             <p className="text-lg text-gray-500 max-w-3xl mx-auto">
               Oubliez la génération aléatoire. Prenez le contrôle total de vos images grâce à Stable Diffusion, ControlNet et LoRA. Décliné en 3 cas d'usage puissants.
             </p>

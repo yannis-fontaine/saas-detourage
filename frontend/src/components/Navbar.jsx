@@ -11,32 +11,52 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
 
-          {/* LOGO */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <img
-              src={logo}
-              alt="Tool IA Logo"
-              className="h-9 w-auto transition-transform duration-300 group-hover:scale-105"
-            />
-          </Link>
+          {/* LOGO + GREETING */}
+          <div className="flex items-center gap-6">
+            <Link to="/" className="flex items-center gap-3 group">
+              <img
+                src={logo}
+                alt="Tool IA Logo"
+                className="h-9 w-auto transition-transform duration-300 group-hover:scale-105"
+              />
+            </Link>
+
+            {user && (
+              <span className="hidden md:block text-sm text-gray-500 border-l border-gray-200 pl-6">
+                Bonjour,{" "}
+                <span className="font-semibold text-gray-900">
+                  {user.email}
+                </span>
+              </span>
+            )}
+          </div>
 
           {/* NAVIGATION */}
           <nav className="flex items-center gap-6">
 
             {user ? (
               <>
-                <span className="hidden md:block text-sm text-gray-500">
-                  Bonjour,{" "}
-                  <span className="font-semibold text-gray-900">
-                    {user.email}
-                  </span>
-                </span>
-
                 <Link
-                  to="/dashboard"
+                  to="/tools/remove-bg"
                   className="relative text-sm font-medium text-gray-600 hover:text-blue-600 transition duration-300"
                 >
-                  Tableau de bord
+                  Détourage IA
+                  <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+
+                <Link
+                  to="/tools/text-to-speech" 
+                  className="relative text-sm font-medium text-gray-600 hover:text-blue-600 transition duration-300"
+                >
+                  Text to Speech
+                  <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+
+                <Link
+                  to="/tools/image-generation" 
+                  className="relative text-sm font-medium text-gray-600 hover:text-blue-600 transition duration-300"
+                >
+                  Studio d'Images IA
                   <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
                 </Link>
 
