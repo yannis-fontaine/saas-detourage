@@ -118,7 +118,7 @@ const LandingPage = () => {
             <div className="w-16 h-16 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">🎨</div>
             <h2 className="text-4xl font-bold mb-4">Studio d'Images IA</h2>
             <p className="text-lg text-gray-500 max-w-3xl mx-auto">
-              Oubliez la génération aléatoire. Prenez le contrôle total de vos images grâce à Stable Diffusion, ControlNet et LoRA. Décliné en 3 cas d'usage puissants.
+              Oubliez la génération aléatoire. Prenez le contrôle total de vos images. Décliné en 3 cas d'usage puissants.
             </p>
           </div>
 
@@ -129,11 +129,11 @@ const LandingPage = () => {
             </div>
             <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-center hover:shadow-md transition">
               <h4 className="font-bold text-lg mb-2 text-green-700">PhotoAI</h4>
-              <p className="text-sm text-gray-600">Génération de portraits cohérents dans divers décors (apprentissage via DreamBooth/LoRA).</p>
+              <p className="text-sm text-gray-600">Génération de portraits cohérents dans divers décors.</p>
             </div>
             <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-center hover:shadow-md transition">
               <h4 className="font-bold text-lg mb-2 text-green-700">InteriorAI</h4>
-              <p className="text-sm text-gray-600">Ameublement virtuel et stylisation avec respect strict de la géométrie (ControlNet).</p>
+              <p className="text-sm text-gray-600">Ameublement virtuel et stylisation avec respect strict de la géométrie.</p>
             </div>
           </div>
           
@@ -141,12 +141,6 @@ const LandingPage = () => {
 
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer className="py-12 bg-gray-900 text-center text-gray-400">
-        <p>© 2024 Tool.IA. La suite d'outils IA pour les créateurs.</p>
-      </footer>
-
     </div>
   );
 };

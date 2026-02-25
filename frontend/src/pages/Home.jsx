@@ -19,7 +19,7 @@ const Home = () => {
       </main>
       
       <footer style={{ textAlign: 'center', marginTop: '50px', fontSize: '0.8rem', color: '#999' }}>
-        &copy; 2024 - Projet SaaS IA
+        &copy; 2026 - Projet SaaS IA
       </footer>
     </div>
   );

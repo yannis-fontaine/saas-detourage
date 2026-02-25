@@ -1,26 +1,33 @@
-# 🪄 DetourImage - SaaS de Détourage par IA
+# Tool.IA - La boîte à outils IA de bout en bout
 
 ![Status](https://img.shields.io/badge/Status-En_Ligne-success)
-![Version](https://img.shields.io/badge/Version-1.0.0-blue)
+![Version](https://img.shields.io/badge/Version-1.1.0-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-**DetourImage** est une application SaaS Fullstack permettant de retirer automatiquement le fond d'une image en quelques secondes grâce à l’intelligence artificielle.
+**Tool.IA** est une plateforme SaaS Fullstack regroupant plusieurs outils d'intelligence artificielle de niveau production. De la vision par ordinateur à la synthèse vocale, l'application offre un hub centralisé pour les créateurs, e-commerçants et designers.
 
-🔗 **Démo en ligne :**  
-https://detourimage.duckdns.org
+🔗 **Démo en ligne :** https://tool-ia.duckdns.org
+
+---
+
+## ✨ Les Outils (La Suite Tool.IA)
+
+- ✂️ **Détourage Magique (Actif)** : Suppression automatique du fond d'une image via le modèle de Deep Learning U²-Net (RemBG).
+- 🎙️ **Text-to-Speech & Clonage Vocal (En construction)** : Génération d'audio haute qualité et clonage de voix.
+- 🎨 **Studio d'Images (En construction)** : Génération et modification avancée d'images via Stable Diffusion et ControlNet (ProperShot, PhotoAI, InteriorAI).
 
 ---
 
 ## 🏗️ Architecture Technique
 
-Ce projet repose sur une architecture **microservices** hébergée sur un VPS (AWS EC2).
+Ce projet repose sur une architecture **microservices** robuste, prête pour la mise en production et hébergée sur un VPS (AWS EC2).
 
 | Partie | Technologies | Rôle |
 |--------|-------------|------|
-| **Frontend** | React.js, Vite, Axios | Interface utilisateur (SPA) |
-| **Backend API** | Node.js, Express, MongoDB | Authentification (JWT) & gestion des utilisateurs |
-| **Service IA** | Python, FastAPI, RemBG (U2Net) | Traitement d'image & détourage |
-| **DevOps** | AWS EC2, Nginx, PM2, Certbot | Hébergement, reverse proxy, HTTPS |
+| **Frontend** | React.js, Vite, Tailwind CSS | Interface utilisateur (SPA), Hub & Landing Page |
+| **Backend API** | Node.js, Express, MongoDB | Auth (JWT), gestion des utilisateurs, quotas, paiements |
+| **Services IA** | Python, FastAPI, ML Models | Inférence des modèles (Vision, Audio, Génération) |
+| **DevOps** | AWS EC2, Nginx, PM2, Certbot | Hébergement, reverse proxy, sécurisation HTTPS |
 
 ---
 
@@ -31,21 +38,9 @@ graph LR
     User((Utilisateur)) -->|HTTPS| Nginx[Nginx Reverse Proxy]
     Nginx -->|Static| React[Frontend React]
     Nginx -->|API| Node[Backend Node.js]
-    Nginx -->|AI Service| Python[IA Service Python]
-    Node -->|Auth & Data| Mongo[(MongoDB Atlas)]
+    Nginx -->|AI Services| Python[APIs IA Python]
+    Node -->|Auth & Quotas| Mongo[(MongoDB Atlas)]
 ```
-
----
-
-## ✨ Fonctionnalités
-
-- ✅ **Authentification** : inscription et connexion sécurisées (JWT)
-- ✅ **Upload d’image** : support PNG, JPG, JPEG
-- ✅ **Détourage IA** : suppression du fond via le modèle U2Net (RemBG)
-- ✅ **Téléchargement** : récupération de l’image détourée en haute qualité
-- ✅ **Sécurité** : HTTPS (Let's Encrypt), hashage des mots de passe
-
----
 
 ## 🛠️ Installation Locale
 
@@ -62,7 +57,7 @@ Si vous souhaitez exécuter le projet en local :
 ### 2️⃣ Cloner le projet
 
 ```bash
-git clone https://github.com/TON_PSEUDO/TON_PROJET.git
+git clone https://github.com/yannis-fontaine/saas-detourage.git
 cd TON_PROJET
 ```
 
@@ -80,6 +75,7 @@ Créer un fichier `.env` :
 ```env
 MONGO_URI=votre_lien_mongodb
 JWT_SECRET=votre_secret
+FRONTEND_URL=http://localhost:5173
 PORT=5000
 ```
 
@@ -136,10 +132,10 @@ npm run dev
 
 ## 🔒 Sécurité
 
-- Authentification via JWT
-- Mots de passe hashés
-- Reverse proxy Nginx
-- Certificat SSL via Let's Encrypt
+- Authentification sécurisée via JWT.
+- Mots de passe hashés en base de données.
+- Protection de l'infrastructure via reverse proxy Nginx.
+- Trafic chiffré HTTPS (Certificat Let's Encrypt).
 
 ---
 

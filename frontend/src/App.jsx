@@ -7,6 +7,7 @@ import Register from './components/Register';
 import Navbar from './components/Navbar'; 
 import Dashboard from './pages/Dashboard'; 
 import ImageUpload from './components/ImageUploader'; 
+import Footer from "./components/Footer";
 
 function App() {
   const { user, loading } = useContext(AuthContext);
@@ -85,6 +86,7 @@ function App() {
 
           </Routes>
         </div>
+        <Footer />
       </div>
     </Router>
   );
