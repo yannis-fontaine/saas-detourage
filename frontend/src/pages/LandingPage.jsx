@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-// IMPORTANT : On réimporte les composants du slider
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+import logo from "../assets/logo.svg";
 
 const LandingPage = () => {
   return (
@@ -8,6 +8,12 @@ const LandingPage = () => {
       
       {/* HERO SECTION */}
       <section className="pt-24 pb-16 px-4 text-center max-w-5xl mx-auto flex flex-col items-center">
+          {/* LOGO */}
+          <img 
+            src={logo} 
+            alt="Tool IA Logo" 
+            className="h-16 w-auto mb-6"
+          />
         <div className="inline-block mb-4 px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm font-semibold border border-blue-100">
           ✨ Le hub ultime pour vos créations IA
         </div>
