@@ -2,7 +2,8 @@
 
 **Tool.IA** est une plateforme SaaS Fullstack regroupant plusieurs outils d'intelligence artificielle de niveau production. De la vision par ordinateur à la synthèse vocale, l'application offre un hub centralisé pour les créateurs, e-commerçants et designers.
 
-🔗 **Démo en ligne :** https://tool-ia.duckdns.org
+🔗 **Démo en ligne :** https://tool-ia.duckdns.org  
+
 ![Status](https://img.shields.io/badge/Status-En_Ligne-success)
 
 ---
