@@ -1,12 +1,9 @@
 # Tool.IA - La boîte à outils IA de bout en bout
 
-![Status](https://img.shields.io/badge/Status-En_Ligne-success)
-![Version](https://img.shields.io/badge/Version-1.1.0-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-
 **Tool.IA** est une plateforme SaaS Fullstack regroupant plusieurs outils d'intelligence artificielle de niveau production. De la vision par ordinateur à la synthèse vocale, l'application offre un hub centralisé pour les créateurs, e-commerçants et designers.
 
 🔗 **Démo en ligne :** https://tool-ia.duckdns.org
+![Status](https://img.shields.io/badge/Status-En_Ligne-success)
 
 ---
 
